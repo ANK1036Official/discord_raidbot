@@ -60,6 +60,7 @@ echo -e $nc"0) exit"
     if [[ $menu1 == "3" ]]; then
         echo -e $lgreen"Selected Spam DM"
         echo "Not ready yet..."
+        sleep 3
     fi
     if [[ $menu1 == "4" ]]; then
         echo -e $lgreen"Selected Join Server"
