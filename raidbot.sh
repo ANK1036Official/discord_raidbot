@@ -4,25 +4,25 @@ lred='\033[0;31m'
 nc='\033[0m'
 
 [ $# -eq 0 ] && { echo "Usage: $0 tokens.txt (PROXY_IP)"; echo "A proxy is not necissary, and must be http based. Example: http://202.54.1.1:3128/"; exit 1; }
-[ $# -eq 2 ] && { export http_proxy=$2 export ; https_proxy=$http_proxy }
+[ $# -eq 2 ] && { export http_proxy=$2 export ; https_proxy=$http_proxy; }
 while :
 do
     clear
     #echo "Art coming soon..."
 
-echo -e $nc"Welcome " $lred"$USER" $nc" Discord-Spammer"
-echo ""
-echo -e $nc"1) Spam Server"
-echo ""
-echo -e $nc"2) Spam Friend Request"
-echo ""
-echo -e $nc"3) Spam DM"
-echo ""
-echo -e $nc"4) Join Server"
-echo ""
-echo -e $nc"5) Leave Server"
-echo ""
-echo -e $nc"0) exit"
+    echo -e $nc"Welcome " $lred"$USER" $nc" Discord-Spammer"
+    echo ""
+    echo -e $nc"1) Spam Server"
+    echo ""
+    echo -e $nc"2) Spam Friend Request"
+    echo ""
+    echo -e $nc"3) Spam DM"
+    echo ""
+    echo -e $nc"4) Join Server"
+    echo ""
+    echo -e $nc"5) Leave Server"
+    echo ""
+    echo -e $nc"0) exit"
 
     read menu1
     if [[ $menu1 == "1" ]]; then
@@ -60,7 +60,22 @@ echo -e $nc"0) exit"
     fi
     if [[ $menu1 == "3" ]]; then
         echo -e $lgreen"Selected Spam DM"
-        echo "Not ready yet..."
+        echo "Enter user ID"
+        read -p '>> ' userid
+        echo "Enter message"
+        read -p '>> ' message_data
+            while : 
+            do
+                for token in `cat $1`; do
+                printf "Token: $token , result: "
+                RESULT=`curl -s -H "Content-Type: application/json" -H "authorization: $token" -X POST -d '{"content":"'"$message_data"'","nonce":"","tts":false}' "https://discordapp.com/api/v7/channels/$userid/messages"`
+                if [[ $(echo $RESULT | head -1) =~ "<html>" ]]; then
+                    printf "fail\n"
+                else
+                    printf "success\n"
+                fi
+            done
+        done
     fi
     if [[ $menu1 == "4" ]]; then
         echo -e $lgreen"Selected Join Server"
@@ -95,4 +110,3 @@ echo -e $nc"0) exit"
         exit 1
     fi
 done
-
