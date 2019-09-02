@@ -60,22 +60,7 @@ do
     fi
     if [[ $menu1 == "3" ]]; then
         echo -e $lgreen"Selected Spam DM"
-        echo "Enter user ID"
-        read -p '>> ' userid
-        echo "Enter message"
-        read -p '>> ' message_data
-            while : 
-            do
-                for token in `cat $1`; do
-                printf "Token: $token , result: "
-                RESULT=`curl -s -H "Content-Type: application/json" -H "authorization: $token" -X POST -d '{"content":"'"$message_data"'","nonce":"","tts":false}' "https://discordapp.com/api/v7/channels/$userid/messages"`
-                if [[ $(echo $RESULT | head -1) =~ "<html>" ]]; then
-                    printf "fail\n"
-                else
-                    printf "success\n"
-                fi
-            done
-        done
+        echo "Removed... Sorry."
     fi
     if [[ $menu1 == "4" ]]; then
         echo -e $lgreen"Selected Join Server"
