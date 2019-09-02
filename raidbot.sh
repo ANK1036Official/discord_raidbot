@@ -3,7 +3,8 @@ lgreen='\033[0;32m'
 lred='\033[0;31m'
 nc='\033[0m'
 
-
+[ $# -eq 0 ] && { echo "Usage: $0 tokens.txt (PROXY_IP)"; echo "A proxy is not necissary, and must be http based. Example: http://202.54.1.1:3128/"; exit 1; }
+[ $# -eq 2 ] && { export http_proxy=$2 export ; https_proxy=$http_proxy }
 while :
 do
     clear
@@ -60,7 +61,6 @@ echo -e $nc"0) exit"
     if [[ $menu1 == "3" ]]; then
         echo -e $lgreen"Selected Spam DM"
         echo "Not ready yet..."
-        sleep 3
     fi
     if [[ $menu1 == "4" ]]; then
         echo -e $lgreen"Selected Join Server"
